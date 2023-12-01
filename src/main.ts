@@ -1,6 +1,7 @@
 
 import { app, BrowserWindow, Menu, ipcMain } from 'electron';
 import path from 'node:path';
+import fs from 'node:fs';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) app.quit();
@@ -29,16 +30,15 @@ const createWindow = () => {
 };
 
 const handleSetPrinter = (event: unknown, printer: string, name: string): void => {
-  console.log(printer, name);
-  // fs.writeFileSync('./data/' + printer + '.txt', name);
+  const file = path.join(__dirname, `${printer}.txt`);
+  fs.writeFileSync(file, name);
 };
 
-const handleGetPrinter = (event: unknown, printer: string) => {
-  console.log(printer);
-  return localStorage.getItem(printer)
-  // const data = fs.readFileSync('./data/' + printer + '.txt').toString();
-  // console.log(data);
-  // return data;
+const handleGetPrinter = async (event: unknown, printer: string) => {
+  const file = path.join(__dirname, `${printer}.txt`);
+  if (!fs.existsSync(file)) return '';
+  const data = fs.readFileSync(file).toString();
+  return data;
 };
 
 const customMenu = [
@@ -49,9 +49,22 @@ const customMenu = [
         label: 'Salir',
         click: () => app.quit(),
         accelerator: 'CmdOrCtrl+W'
-      }
+      }, ],
+  },
+  {
+    label: 'Vista',
+    submenu: [
+      { role: 'reload', label: 'Recargar' },
+      { role: 'forceReload', label: 'Forzar recarga' },
+      { role: 'toggleDevTools', label: 'Mostrar herramientas de desarrollo' },
+      { type: 'separator' },
+      { role: 'resetZoom' },
+      { role: 'zoomIn' },
+      { role: 'zoomOut' },
+      { type: 'separator' },
+      { role: 'togglefullscreen' }
     ]
-  }
+  },
 ] as (Electron.MenuItemConstructorOptions | Electron.MenuItem)[]
 
 app.whenReady().then(() => {

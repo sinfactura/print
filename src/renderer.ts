@@ -4,18 +4,20 @@ import './index.css';
 const selects = Array.from(document.getElementsByClassName('printer')) as HTMLInputElement[];
 
 (async () => {
-	const data = await window.data.printers();
+	const printers = await window.data.printers();
 
-	selects.map(select => {
+	selects.map(async (select) => {
 		select.addEventListener('change', () => {
-			localStorage.setItem(select.id, select.value);
+			window.data.setPrinter(select.id, select.value)
 		})
-		data.map(({ description, printer }) => {
+		const printerSelected = await window.data.getPrinter(select.id);
+
+		printers.map(({ description, printer }) => {
 			const option = document.createElement("option");
 			option.text = description;
 			option.value = printer;
-			option.selected = printer === localStorage.getItem(select.id);
-			// option.disabled = status == 'idle' ? true : false;
+			option.selected = printer === printerSelected;
+			// option.disabled = status == 'idle' s? true : false;
 			select.appendChild(option);
 		});
 
@@ -45,21 +47,28 @@ const connectWs = () => {
 		connectWs();
 	}
 
-	ws.onmessage = (event) => {
+	ws.onmessage = async (event) => {
 		const { action, data } = JSON.parse(event?.data) as { action: string, data: Record<string, string | number> };
+		const printerTag = await window.data.getPrinter('printer3');
+		const printerOrder = await window.data.getPrinter('printer1');
+		const printerInvoice = await window.data.getPrinter('printer2');
+
 		switch (action) {
 			case 'print-tag':
 				console.log('print tag');
+				console.log(printerTag);
 				console.log(data);
 				break;
 
 			case 'print-order':
 				console.log('print order');
+				console.log(printerOrder);
 				console.log(data);
 				break;
 
 			case 'print-invoice':
 				console.log('print invoice');
+				console.log(printerInvoice);
 				console.log(data);
 				break;
 			default:
