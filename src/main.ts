@@ -1,7 +1,10 @@
+// THIS FILE NEEDS TO RESTART THE APP
 
 import { app, BrowserWindow, Menu, ipcMain } from 'electron';
 import path from 'node:path';
 import fs from 'node:fs';
+import { print as printUnix } from 'unix-print';
+import { print as printWin } from 'pdf-to-printer';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) app.quit();
@@ -38,18 +41,52 @@ const handleGetPrinter = async (event: unknown, printer: string) => {
   const file = path.join(__dirname, `${printer}.txt`);
   if (!fs.existsSync(file)) return '';
   const data = fs.readFileSync(file).toString();
+  console.log(data);
   return data;
+};
+
+const handlePrint = async (event: unknown, data: string, printer: string) => {
+  const file = path.join(__dirname, `fileToPrint.pdf`);
+
+  const formatedData = Buffer.from(data.slice(28, 999999), 'base64');
+
+  fs.createWriteStream(file).write(formatedData, async () => {
+    const options = [
+      '-o landscape',
+      '-o fit-to-page',
+      '-o media=A4',
+    ];
+
+    isWin
+      ? await printWin(file, {
+        printer,
+        scale: 'fit'
+      })
+        .then(res => {
+          console.log('Archivo impreso', res);
+          fs.unlinkSync(file);
+        }).catch(err => {
+          console.log('Error al imprimir', err);
+          fs.unlinkSync(file);
+        })
+      : await printUnix(file, printer, options)
+        .then((res) => {
+          console.log('Archivo impreso', res);
+          fs.unlinkSync(file);
+        })
+        .catch((err) => {
+          console.log('Error al imprimir', err);
+          fs.unlinkSync(file);
+        })
+  });
 };
 
 const customMenu = [
   {
     label: 'Archivo',
     submenu: [
-      {
-        label: 'Salir',
-        click: () => app.quit(),
-        accelerator: 'CmdOrCtrl+W'
-      }, ],
+      { role: 'quit', label: 'Salir', accelerator: 'CmdOrCtrl+W' },
+    ],
   },
   {
     label: 'Vista',
@@ -57,12 +94,6 @@ const customMenu = [
       { role: 'reload', label: 'Recargar' },
       { role: 'forceReload', label: 'Forzar recarga' },
       { role: 'toggleDevTools', label: 'Mostrar herramientas de desarrollo' },
-      { type: 'separator' },
-      { role: 'resetZoom' },
-      { role: 'zoomIn' },
-      { role: 'zoomOut' },
-      { type: 'separator' },
-      { role: 'togglefullscreen' }
     ]
   },
 ] as (Electron.MenuItemConstructorOptions | Electron.MenuItem)[]
@@ -70,6 +101,8 @@ const customMenu = [
 app.whenReady().then(() => {
   ipcMain.on('set-printer', handleSetPrinter)
   ipcMain.on('get-printer', handleGetPrinter)
+  ipcMain.on('print-buffer', handlePrint)
+
   const mainMenu = Menu.buildFromTemplate(customMenu);
   Menu.setApplicationMenu(mainMenu);
   createWindow();

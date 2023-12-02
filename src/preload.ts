@@ -5,11 +5,10 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { getPrinters as getPrintersUnix } from 'unix-print';
 import { getPrinters as getPrintersWin } from 'pdf-to-printer';
-import fs from 'node:fs';
 import path from 'node:path';
+import fs from 'node:fs';
 
 const isWin = process.platform === 'win32';
-
 
 declare global {
 	interface Window {
@@ -17,12 +16,12 @@ declare global {
 			printers: () => Promise<Record<string, string>[]>,
 			setPrinter: (printer: string, name: string) => void,
 			getPrinter: (printer: string) => Promise<string>,
+			print: (data: string, printer: string) => Promise<void>,
 		}
 	}
 }
 
 const handleGetPrinter = async (printer: string) => {
-	// const file = `./${printer}.txt`;
 	const file = path.join(__dirname, `${printer}.txt`);
 	if (!fs.existsSync(file)) return '';
 	const data = fs.readFileSync(file).toString();
@@ -34,4 +33,5 @@ contextBridge.exposeInMainWorld('data', {
 	setPrinter: (printer: string, name: string) => ipcRenderer.send('set-printer', printer, name),
 	// getPrinter: (printer: string) => ipcRenderer.send('get-printer', printer),
 	getPrinter: (printer: string) => handleGetPrinter(printer),
+	print: (data: string, printer: string) => ipcRenderer.send('print-buffer', data, printer)
 });
