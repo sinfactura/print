@@ -18,7 +18,7 @@ const selects = Array.from(document.getElementsByClassName('printer')) as HTMLIn
 			const option = document.createElement("option");
 			option.text = description ?? name;
 			option.value = printer ?? deviceId;
-			option.selected = printer === printerSelected;
+			option.selected = (printer ?? deviceId) === printerSelected;
 			// option.disabled = status == 'idle' s? true : false;
 			select.appendChild(option);
 		});
@@ -57,7 +57,7 @@ const connectWs = () => {
 		const printerTag = await window.data.getPrinter('printer3');
 
 		const baseUrl = 'https://api.sinfactura.com';
-		const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdG9yZUlkIjoiU1RPMDAxIiwidXNlcklkIjoiVVNSMDAxIiwicm9sZXMiOiJBRE1JTiBVU0VSIFNVUEVSX1VTRVIgU1VQRVJfQURNSU4iLCJpYXQiOjE3MDE0NzU3MjQsImV4cCI6MTcwMTU0MDUyNH0.a_6R8mAA7EWau7A4rEmGNAU4SlmVuDRQwzQRNqf-Nr4';
+		const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdG9yZUlkIjoiU1RPMDAxIiwidXNlcklkIjoiVVNSMDAxIiwicm9sZXMiOiJBRE1JTiBVU0VSIFNVUEVSX1VTRVIgU1VQRVJfQURNSU4iLCJpYXQiOjE3MDE1NTUyMDIsImV4cCI6MTcwMTYyMDAwMn0.-EQ3dHj5DSLjjyxEkphavmLvSWaGfRQc9LUw0ulUH5w';
 
 		try {
 
