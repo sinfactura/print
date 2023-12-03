@@ -64,12 +64,19 @@ const connectWs = () => {
 
 			switch (action) {
 				case 'print-tag':
-					console.log('print tag');
-					console.log(printerTag);
-					console.log(data);
+					if (!printerTag) return;
+					// eslint-disable-next-line no-case-declarations
+					const { data: { data: tag } } = await axios({
+						url: `${baseUrl}/orders/tag`,
+						method: 'POST',
+						headers: { Authorization },
+						data,
+					});
+					await window.data.print(tag, printerTag)
 					break;
 
 				case 'print-order':
+					if (!printerOrder) return;
 					// eslint-disable-next-line no-case-declarations
 					const { data: { data: order } } = await axios({
 						url: `${baseUrl}/orders/pdf`,
@@ -81,6 +88,7 @@ const connectWs = () => {
 					break;
 
 				case 'print-invoice':
+					if (!printerInvoice) return;
 					// eslint-disable-next-line no-case-declarations
 					const { data: { data: invoice } } = await axios({
 						url: `${baseUrl}/invoices/pdf`,
