@@ -72,7 +72,7 @@ const connectWs = () => {
 						headers: { Authorization },
 						data,
 					});
-					await window.data.print(tag, printerTag)
+					await window.data.print(tag, printerTag, true)
 					break;
 
 				case 'print-order':

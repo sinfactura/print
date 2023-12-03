@@ -47,7 +47,7 @@ const handleGetPrinter = async (event: unknown, printer: string) => {
   return data;
 };
 
-const handlePrint = async (event: unknown, data: string, printer: string) => {
+const handlePrint = async (event: unknown, data: string, printer: string, isTag = false) => {
   const file = path.join(__dirname, `fileToPrint.pdf`);
 
   const formatedData = Buffer.from(data.slice(28, 999999), 'base64');
@@ -56,13 +56,14 @@ const handlePrint = async (event: unknown, data: string, printer: string) => {
     const options = [
       '-o landscape',
       '-o fit-to-page',
-      '-o media=A4',
+      `-o media=${isTag ? 'A6' : 'A4'}`,
     ];
 
     isWin
       ? await printWin(file, {
         printer,
         scale: 'fit',
+        paperSize: `${isTag ? 'A6' : 'A4'}`,
         sumatraPdfPath: path.join(__dirname, '..', '..', 'node_modules\\pdf-to-printer\\dist\\SumatraPDF-3.4.6-32.exe')
       })
         .then(res => {
