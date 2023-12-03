@@ -63,7 +63,7 @@ const handlePrint = async (event: unknown, data: string, printer: string) => {
       ? await printWin(file, {
         printer,
         scale: 'fit',
-        sumatraPdfPath: path.join(__dirname, '..', '..', 'node_modules\\pdf-to-printer\\dist\\SumatraPDF-3.4.5-32.exe')
+        sumatraPdfPath: path.join(__dirname, '..', '..', 'node_modules\\pdf-to-printer\\dist\\SumatraPDF-3.4.6-32.exe')
       })
         .then(res => {
           console.log('Archivo impreso', res);
