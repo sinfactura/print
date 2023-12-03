@@ -18,6 +18,7 @@ const createWindow = () => {
     height: 600,
     width: isDev ? 1000 : 500,
     resizable: false,
+    // icon: '/src/icons/1024x1024.png', // only linux
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,

@@ -1,6 +1,6 @@
 {
   "name": "sinfactura",
-  "productName": "sf-print",
+  "productName": "Sinfactura Cloud Print",
   "version": "1.0.0",
   "description": "App to cloud print in sinfactura",
   "main": ".vite/build/main.js",
@@ -8,7 +8,6 @@
     "dev": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "makewin": "electron-forge make --platform win32",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
