@@ -9,8 +9,9 @@ import { print as printWin } from 'pdf-to-printer';
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) app.quit();
 
-const isDev = process.env.NODE_ENV !== 'production';
+const isDev = process.env.NODE_ENV === 'development';
 const isWin = process.platform === 'win32';
+console.log(process.env.NODE_ENV);
 
 const createWindow = () => {
   // Create the browser window.
@@ -60,14 +61,13 @@ const handlePrint = async (event: unknown, data: string, printer: string) => {
     isWin
       ? await printWin(file, {
         printer,
-        scale: 'fit'
+        scale: 'fit',
+        sumatraPdfPath: path.join(__dirname, '..', '..', 'node_modules\\pdf-to-printer\\dist\\SumatraPDF-3.4.5-32.exe')
       })
         .then(res => {
           console.log('Archivo impreso', res);
-          fs.unlinkSync(file);
         }).catch(err => {
           console.log('Error al imprimir', err);
-          fs.unlinkSync(file);
         })
       : await printUnix(file, printer, options)
         .then((res) => {

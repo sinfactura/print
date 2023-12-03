@@ -33,5 +33,5 @@ contextBridge.exposeInMainWorld('data', {
 	setPrinter: (printer: string, name: string) => ipcRenderer.send('set-printer', printer, name),
 	// getPrinter: (printer: string) => ipcRenderer.send('get-printer', printer),
 	getPrinter: (printer: string) => handleGetPrinter(printer),
-	print: (data: string, printer: string) => ipcRenderer.send('print-buffer', data, printer)
+	print: (data: string, printer: string) => ipcRenderer.send('print-buffer', data, printer),
 });
