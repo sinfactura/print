@@ -11,13 +11,13 @@ if (require('electron-squirrel-startup')) app.quit();
 
 const isDev = process.env.NODE_ENV === 'development';
 const isWin = process.platform === 'win32';
-console.log(process.env.NODE_ENV);
 
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
     width: isDev ? 1000 : 500,
+    resizable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,

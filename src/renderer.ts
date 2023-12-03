@@ -43,7 +43,6 @@ const connectWs = () => {
 	// CONNECT
 	ws.onopen = () => {
 		console.log('socket open');
-		console.log(process.env.NODE_ENV)
 	}
 	// DISCONNECT
 	ws.onclose = () => {
