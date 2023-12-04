@@ -54,7 +54,7 @@ const handlePrint = async (event: unknown, data: string, printer: string, isTag 
 
   fs.createWriteStream(file).write(formatedData, async () => {
     const options = [
-      '-o landscape',
+      `-o ${isTag ? 'portrait' : 'landscape'}`,
       '-o fit-to-page',
       `-o media=${isTag ? 'A6' : 'A4'}`,
     ];
@@ -63,6 +63,7 @@ const handlePrint = async (event: unknown, data: string, printer: string, isTag 
       ? await printWin(file, {
         printer,
         scale: 'fit',
+        orientation: `${isTag ? 'portrait' : 'landscape'}`,
         paperSize: `${isTag ? 'A6' : 'A4'}`,
         sumatraPdfPath: path.join(__dirname, '..', '..', 'node_modules\\pdf-to-printer\\dist\\SumatraPDF-3.4.6-32.exe')
       })
