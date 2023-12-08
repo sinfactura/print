@@ -57,7 +57,7 @@ const connectWs = () => {
 		const printerTag = await window.data.getPrinter('printer3');
 
 		const baseUrl = 'https://api.sinfactura.com';
-		const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdG9yZUlkIjoiU1RPMDAxIiwidXNlcklkIjoiVVNSMDAxIiwicm9sZXMiOiJBRE1JTiBVU0VSIFNVUEVSX1VTRVIgU1VQRVJfQURNSU4iLCJpYXQiOjE3MDE2MTg0NDAsImV4cCI6MTcwMTY4MzI0MH0.o99zWdZwika8habLcxXBj2WLNi5BmQHWKh69rOFoJoo';
+		const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdG9yZUlkIjoiU1RPMDAxIiwidXNlcklkIjoiVVNSMDAxIiwicm9sZXMiOiJBRE1JTiBVU0VSIFNVUEVSX1VTRVIgU1VQRVJfQURNSU4iLCJpYXQiOjE3MDIwNDI0MjksImV4cCI6MTcwMjEwNzIyOX0.Lwh2XVHBNE3aUtg_aRbhpUj2XPWuMYqT35t96f_-A_k';
 
 		try {
 
