@@ -1,10 +1,8 @@
 
 import { app, BrowserWindow, Menu, ipcMain } from 'electron';
 import path from 'node:path';
-import { handlePrint } from './helpers/handlePrint';
-import { handleSetPrinter } from './helpers/handleSetPrinter';
-import { handleGetPrinter } from './helpers/handleGetPrinter';
-import { mainMenu } from './helpers/menu';
+import { handleGetPrinter, handlePrint, handleSetPrinter, mainMenu } from './helpers';
+
 
 if (require('electron-squirrel-startup')) app.quit();
 

@@ -1,7 +1,7 @@
+
 // CHROME PROCESS
 import axios from 'axios';
 import './index.css';
-
 
 const selects = Array.from(document.getElementsByClassName('printer')) as HTMLInputElement[];
 

@@ -1,14 +1,10 @@
-// See the Electron documentation for details on how to use preload scripts:
-// https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
-
 
 import { contextBridge, ipcRenderer } from 'electron';
 import { getPrinters as getPrintersUnix } from 'unix-print';
 import { getPrinters as getPrintersWin } from 'pdf-to-printer';
 import path from 'node:path';
 import fs from 'node:fs';
-
-const isWin = process.platform === 'win32';
+import { isWin } from './helpers';
 
 declare global {
 	interface Window {
