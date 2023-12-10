@@ -4,7 +4,7 @@ import { print as printUnix } from 'unix-print';
 import { print as printWin } from 'pdf-to-printer';
 
 export const handlePrint = async (event: unknown, data: string, printer: string, isTag = false) => {
-	const file = path.join(__dirname, `fileToPrint.pdf`);
+	const file = path.join(__dirname, 'fileToPrint.pdf');
 
 	const formatedData = Buffer.from(data.slice(28, 999999), 'base64');
 	const isWin = process.platform === 'win32';
@@ -37,6 +37,6 @@ export const handlePrint = async (event: unknown, data: string, printer: string,
 				.catch((err) => {
 					console.log('Error al imprimir', err);
 					fs.unlinkSync(file);
-				})
+				});
 	});
 };

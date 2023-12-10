@@ -25,5 +25,5 @@ export const createLoginWindow = () => {
 	isDev && loginWindow.webContents.openDevTools();
 	loginWindow.on('close', () => {
 		loginWindow = null;
-	})
+	});
 };

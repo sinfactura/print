@@ -16,6 +16,6 @@ const customMenu = [
 			{ role: 'toggleDevTools', label: 'Mostrar herramientas de desarrollo' },
 		]
 	},
-] as (Electron.MenuItemConstructorOptions | Electron.MenuItem)[]
+] as (Electron.MenuItemConstructorOptions | Electron.MenuItem)[];
 
 export const mainMenu = Menu.buildFromTemplate(customMenu);

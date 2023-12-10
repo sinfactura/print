@@ -25,5 +25,5 @@ export const createMainWindow = () => {
 	isDev && mainWindow.webContents.openDevTools();
 	mainWindow.on('close', () => {
 		mainWindow = null;
-	})
+	});
 };

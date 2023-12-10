@@ -10,12 +10,12 @@ const selects = Array.from(document.getElementsByClassName('printer')) as HTMLIn
 
 	selects.map(async (select) => {
 		select.addEventListener('change', () => {
-			window.data.setPrinter(select.id, select.value)
-		})
+			window.data.setPrinter(select.id, select.value);
+		});
 		const printerSelected = await window.data.getPrinter(select.id);
 
 		printers.map(({ description, printer, name, deviceId }) => {
-			const option = document.createElement("option");
+			const option = document.createElement('option');
 			option.text = description ?? name;
 			option.value = printer ?? deviceId;
 			option.selected = (printer ?? deviceId) === printerSelected;
@@ -32,23 +32,23 @@ const storeId = 'STO001';
 const baseUrl = `wss://wss.sinfactura.com?userId=${userId}&storeId=${storeId}`;
 
 const connectWs = () => {
-	const ws = new WebSocket(baseUrl, [])
+	const ws = new WebSocket(baseUrl, []);
 
 	// HANDLE ERRORS
 	ws.onerror = (event) => {
 		console.log('error event', event);
 		connectWs();
-	}
+	};
 
 	// CONNECT
 	ws.onopen = () => {
 		console.log('socket open');
-	}
+	};
 	// DISCONNECT
 	ws.onclose = () => {
 		console.log('socket closed');
 		connectWs();
-	}
+	};
 
 	ws.onmessage = async (event) => {
 		const { action, data } = JSON.parse(event?.data) as { action: string, data: Record<string, string | number> };
@@ -72,7 +72,7 @@ const connectWs = () => {
 						headers: { Authorization },
 						data,
 					});
-					await window.data.print(tag, printerTag, true)
+					await window.data.print(tag, printerTag, true);
 					break;
 
 				case 'print-order':
@@ -84,7 +84,7 @@ const connectWs = () => {
 						method: 'GET',
 						headers: { Authorization }
 					});
-					await window.data.print(order, printerOrder)
+					await window.data.print(order, printerOrder);
 					break;
 
 				case 'print-invoice':
@@ -96,7 +96,7 @@ const connectWs = () => {
 						method: 'GET',
 						headers: { Authorization }
 					});
-					await window.data.print(invoice, printerInvoice)
+					await window.data.print(invoice, printerInvoice);
 					break;
 				default:
 					break;
@@ -104,12 +104,12 @@ const connectWs = () => {
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 
 	// KEEP ALIVE
 	setInterval(() => {
-		if (ws.readyState === 1) ws.send('live')
-	}, 1000 * 60 * 2)
+		if (ws.readyState === 1) ws.send('live');
+	}, 1000 * 60 * 2);
 
 	// setInterval(() => {
 	// 	// FORCE CLOSE TO TEST IT
