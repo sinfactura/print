@@ -4,7 +4,8 @@ import { getPrinters as getPrintersUnix } from 'unix-print';
 import { getPrinters as getPrintersWin } from 'pdf-to-printer';
 import path from 'node:path';
 import fs from 'node:fs';
-import { isWin } from './helpers';
+
+const isWin = process.platform === 'win32';
 
 declare global {
 	interface Window {
