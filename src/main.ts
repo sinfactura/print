@@ -1,7 +1,7 @@
 
 import { app, BrowserWindow, Menu, ipcMain } from 'electron';
 import { handleGetPrinter, handlePrint, handleSetPrinter, mainMenu } from './helpers';
-import { createMainWindow } from './windows/mainWindow';
+import { createMainWindow } from './windows';
 
 const isWin = process.platform === 'win32';
 if (require('electron-squirrel-startup')) app.quit();
