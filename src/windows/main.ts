@@ -5,17 +5,21 @@ import path from 'node:path';
 const isDev = process.env.NODE_ENV === 'development';
 
 export const createMainWindow = () => {
+
 	let mainWindow = new BrowserWindow({
 		height: 600,
 		width: isDev ? 1000 : 500,
 		resizable: false,
-		// icon: '/src/icons/1024x1024.png', // only linux
+		icon: path.join(__dirname, 'icons', 'icon.png'),
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 			nodeIntegration: true,
 		},
+		show: false,
+		backgroundColor: '#333',
 	});
-	// load the index.html of the app.
+
+
 	if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
 		mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
 	} else {
@@ -23,7 +27,11 @@ export const createMainWindow = () => {
 	}
 
 	isDev && mainWindow.webContents.openDevTools();
+
+	mainWindow.on('ready-to-show', mainWindow.show);
+
 	mainWindow.on('close', () => {
 		mainWindow = null;
 	});
+
 };
