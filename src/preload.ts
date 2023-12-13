@@ -10,15 +10,15 @@ const isWin = process.platform === 'win32';
 declare global {
 	interface Window {
 		data: {
-			printers: () => Promise<Record<string, string>[]>,
+			getPrinters: () => Promise<Record<string, string>[]>,
 			setPrinter: (printer: string, name: string) => void,
-			getPrinter: (printer: string) => Promise<string>,
+			loadPrinter: (printer: string) => Promise<string>,
 			print: (data: string, printer: string, isTag?: boolean) => Promise<void>,
 		}
 	}
 }
 
-const handleGetPrinter = async (printer: string) => {
+const handleLoadPrinter = async (printer: string) => {
 	const file = path.join(__dirname, `${printer}.txt`);
 	if (!fs.existsSync(file)) return '';
 	const data = fs.readFileSync(file).toString();
@@ -26,9 +26,8 @@ const handleGetPrinter = async (printer: string) => {
 };
 
 contextBridge.exposeInMainWorld('data', {
-	printers: () => isWin ? getPrintersWin() : getPrintersUnix(),
+	getPrinters: () => isWin ? getPrintersWin() : getPrintersUnix(),
 	setPrinter: (printer: string, name: string) => ipcRenderer.send('set-printer', printer, name),
-	// getPrinter: (printer: string) => ipcRenderer.send('get-printer', printer),
-	getPrinter: (printer: string) => handleGetPrinter(printer),
-	print: (data: string, printer: string, isTag?: boolean) => ipcRenderer.send('print-buffer', data, printer, isTag),
+	loadPrinter: (printer: string) => handleLoadPrinter(printer),
+	print: (data: string, printer: string, isTag?: boolean) => ipcRenderer.send('print', data, printer, isTag),
 });

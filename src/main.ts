@@ -11,6 +11,7 @@ app.whenReady().then(() => {
 	Menu.setApplicationMenu(mainMenu);
 	ipcMainHandler();
 	createMainWindow();
+	console.log(process);
 });
 
 app.on('window-all-closed', () => {

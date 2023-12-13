@@ -27,9 +27,9 @@ export const wsHandler = () => {
 
 	ws.onmessage = async (event) => {
 		const { action, data } = JSON.parse(event?.data) as { action: string, data: Record<string, string | number> };
-		const printerOrder = await window.data.getPrinter('printer1');
-		const printerInvoice = await window.data.getPrinter('printer2');
-		const printerTag = await window.data.getPrinter('printer3');
+		const printerOrder = await window.data.loadPrinter('printer1');
+		const printerInvoice = await window.data.loadPrinter('printer2');
+		const printerTag = await window.data.loadPrinter('printer3');
 
 		const baseUrl = 'https://api.sinfactura.com';
 		const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdG9yZUlkIjoiU1RPMDAxIiwidXNlcklkIjoiVVNSMDAxIiwicm9sZXMiOiJBRE1JTiBVU0VSIFNVUEVSX1VTRVIgU1VQRVJfQURNSU4iLCJpYXQiOjE3MDIwNDI0MjksImV4cCI6MTcwMjEwNzIyOX0.Lwh2XVHBNE3aUtg_aRbhpUj2XPWuMYqT35t96f_-A_k';
