@@ -4,52 +4,47 @@ import path from 'node:path';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-export const createMainWindow = () => {
+export const createMainWindow = async () => {
 
 	let mainWindow = new BrowserWindow({
-		height: 600,
-		width: isDev ? 1000 : 500,
-		resizable: false,
+		height: 560,
+		width: isDev ? 1000 : 400,
+		// resizable: false,
 		icon: path.join(__dirname, 'icons', 'icon.png'),
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 			nodeIntegration: true,
+			partition: 'persist:sinfactura'
 		},
 		show: false,
 		backgroundColor: '#333',
 	});
 
-	let secondaryWindow = new BrowserWindow({
-		height: 350,
-		width: 800,
-		resizable: false,
-		webPreferences: {
-			nodeIntegration: true,
-		},
-		show: false,
-		backgroundColor: '#333',
-		parent: mainWindow,
-		modal: true,
-		center: true,
-	});
+	// const ses = mainWindow.webContents.session;
+	// await ses.cookies.set({ url: 'https://api.sinfactura.com', name: 'name', value: 'Samuel', expirationDate: 191212121 });
 
+	// ses.cookies.get({ url: 'https://api.sinfactura.com' })
+	// 	.then((res) => console.log(res))
+	// 	.catch(err => console.log(err));
 
 	if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
 		mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
-		secondaryWindow.loadFile('login.html');
+		// mainWindow.loadURL('https://sinfactura.com');
 	} else {
 		mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
-		secondaryWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/login.html`));
 	}
 
 
 	isDev && mainWindow.webContents.openDevTools();
-	isDev && secondaryWindow.webContents.openDevTools();
+
+	mainWindow.webContents.on('did-finish-load', () => {
+		console.log('finish-load');
+
+	});
+
 
 	mainWindow.on('ready-to-show', mainWindow.show);
-	secondaryWindow.on('ready-to-show', secondaryWindow.show);
 
 	mainWindow.on('close', () => mainWindow = null);
-	secondaryWindow.on('close', () => secondaryWindow = null);
 
 };

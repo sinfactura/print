@@ -10,29 +10,42 @@
 	<link rel="stylesheet" href="./src/index.css">
 </head>
 
-<body>
-	<div class="pb-1">
-		<p>sinfactura.com | Login</p>
+<body class="p-4 overflow-hidden">
+	<div class="container-fluid">
+		<legend class="mb-4">Ingrese a su cuenta</legend>
+
+		<div class="form-floating mb-3">
+			<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+			<label for="floatingInput" style="color: #666;">Email</label>
+		</div>
+
+		<div class="form-floating mb-3" style="color: #666;">
+			<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+			<label for="floatingPassword">Contraseña</label>
+		</div>
+
+		<div class="d-grid gap-2">
+			<button type="submit" class="btn btn-primary">Ingresar</button>
+			<button type="reset" class="btn btn-secondary">Resetear</button>
+		</div>
+
+		<div class="mt-4">
+			<!-- <div class="alert alert-success" role="alert">
+				A simple success alert—check it out!
+			</div> -->
+
+			<div class="alert alert-danger" role="alert" id="message">
+				A simple danger alert—check it out!
+			</div>
+			<!-- <div class="alert alert-warning" role="alert">
+				A simple warning alert—check it out!
+			</div> -->
+		</div>
+
 	</div>
-	<div>
 
-		<div class="mb-3 mt-3">
-			<label for="email" class="form-label">Email</label>
-			<input class="form-input" type="email" name="email" id="email">
-		</div>
+	<script type="module" src="/src/renderer.ts"></script>
 
-		<div class="mb-3 mt-3">
-			<label for="password" class="form-label">Contraseña</label>
-			<input class="form-input" type="password" name="password" id="password">
-		</div>
-
-		<div class="mb-3 mt-3">
-			<button type="submit">Ingresar</button>
-		</div>
-
-	</div>
-
-	<p id="info" class="mt-3"></p>
 
 </body>
 

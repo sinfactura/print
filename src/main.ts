@@ -1,16 +1,15 @@
 
-import { app, BrowserWindow, Menu, ipcMain } from 'electron';
-import { handleGetPrinter, handlePrint, handleSetPrinter, mainMenu } from './helpers';
+import { app, BrowserWindow, Menu } from 'electron';
+import { mainMenu } from './helpers/main';
 import { createMainWindow } from './windows';
+import { ipcMainHandler } from './helpers/main/ipcMainHandler';
 
 const isWin = process.platform === 'win32';
 if (require('electron-squirrel-startup')) app.quit();
 
 app.whenReady().then(() => {
-	ipcMain.on('set-printer', handleSetPrinter);
-	ipcMain.on('get-printer', handleGetPrinter);
-	ipcMain.on('print-buffer', handlePrint);
 	Menu.setApplicationMenu(mainMenu);
+	ipcMainHandler();
 	createMainWindow();
 });
 
