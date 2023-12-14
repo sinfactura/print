@@ -4,27 +4,24 @@ import { MakerZIP } from '@electron-forge/maker-zip';
 import { MakerDeb } from '@electron-forge/maker-deb';
 import { MakerRpm } from '@electron-forge/maker-rpm';
 import { VitePlugin } from '@electron-forge/plugin-vite';
-// import path from 'node:path';
+import path from 'node:path';
 
 const config: ForgeConfig = {
 	packagerConfig: {
-		// icon: path.join(__dirname, 'icons')
-		icon: './src/icons'
+		icon: path.join(__dirname, 'src', 'icons'),
+		extraResource: [
+			path.join(__dirname, 'src', 'icons')
+		]
 	},
 	rebuildConfig: {},
 	makers: [
 		new MakerSquirrel({
 			authors: 'SINFACTURA LLC',
-			description: 'Cloud print app for windows',
-			setupIcon: './src/icons/icon.ico'
+			description: 'Cloud print app',
 		}),
 		new MakerZIP({}, [ 'darwin', 'win32' ]),
 		new MakerRpm({}),
-		new MakerDeb({
-			options: {
-				icon: './src/icons/1024x1024.png'
-			}
-		})
+		new MakerDeb({})
 	],
 	plugins: [
 		new VitePlugin({
