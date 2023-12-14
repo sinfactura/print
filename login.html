@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+	<!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self';"> -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>sinfactura.com | Login </title>
@@ -14,38 +14,37 @@
 	<div class="container-fluid">
 		<legend class="mb-4">Ingrese a su cuenta</legend>
 
-		<div class="form-floating mb-3">
-			<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-			<label for="floatingInput" style="color: #666;">Email</label>
-		</div>
+		<form action="">
+			<div class="form-floating mb-3">
+				<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+				<label for="floatingInput" style="color: #666;">Email</label>
+			</div>
 
-		<div class="form-floating mb-3" style="color: #666;">
-			<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-			<label for="floatingPassword">Contraseña</label>
-		</div>
+			<div class="form-floating mb-3" style="color: #666;">
+				<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+				<label for="floatingPassword">Contraseña</label>
+			</div>
 
-		<div class="d-grid gap-2">
-			<button type="submit" class="btn btn-primary">Ingresar</button>
-			<button type="reset" class="btn btn-secondary">Resetear</button>
-		</div>
+			<div class="d-grid gap-2">
+				<button type="submit" class="btn btn-primary">Ingresar</button>
+				<button type="reset" class="btn btn-secondary">Resetear</button>
+			</div>
+		</form>
 
 		<div class="mt-4">
-			<!-- <div class="alert alert-success" role="alert">
-				A simple success alert—check it out!
-			</div> -->
 
 			<div class="alert alert-danger" role="alert" id="message">
-				A simple danger alert—check it out!
+				Email o contraseña incorrectos!
 			</div>
-			<!-- <div class="alert alert-warning" role="alert">
-				A simple warning alert—check it out!
-			</div> -->
+
 		</div>
 
 	</div>
 
-	<script type="module" src="/src/renderer.ts"></script>
+	<script>
+		//  HERE ALL LOGIC FOR LOGIN FORM
 
+	</script>
 
 </body>
 
