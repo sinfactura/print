@@ -6,13 +6,15 @@ const userId = 'USR002';
 const storeId = 'STO001';
 const baseUrl = `wss://wss.sinfactura.com?userId=${userId}&storeId=${storeId}`;
 
-export const wsHandler = () => {
+export const wssHandler = () => {
 	const ws = new WebSocket(baseUrl, []);
 
 	// HANDLE ERRORS
 	ws.onerror = (event) => {
 		console.log('error event', event);
-		wsHandler();
+		setTimeout(() => {
+			wssHandler();
+		}, 1000);
 	};
 
 	// CONNECT
@@ -22,7 +24,9 @@ export const wsHandler = () => {
 	// DISCONNECT
 	ws.onclose = () => {
 		console.log('socket closed');
-		wsHandler();
+		setTimeout(() => {
+			wssHandler();
+		}, 1000);
 	};
 
 	ws.onmessage = async (event) => {
@@ -84,7 +88,7 @@ export const wsHandler = () => {
 	// KEEP ALIVE
 	setInterval(() => {
 		if (ws.readyState === 1) ws.send('live');
-	}, 1000 * 60 * 2);
+	}, 1000 * 60 * 1);
 
 	// setInterval(() => {
 	// 	// FORCE CLOSE TO TEST IT

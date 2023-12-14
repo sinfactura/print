@@ -1,7 +1,7 @@
 
 import './index.css';
-import { wsHandler } from './helpers/renderer/wsHandler';
+import { wssHandler } from './helpers/renderer/wssHandler';
 import { printersHandler } from './helpers/renderer/printersHandler';
 
 printersHandler();
-wsHandler();
+wssHandler();
