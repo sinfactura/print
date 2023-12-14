@@ -1,8 +1,9 @@
 
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, Menu, nativeImage } from 'electron';
 import { mainMenu } from './helpers/main';
-import { createMainWindow } from './windows';
+import { createMainWindow } from './windows/main';
 import { ipcMainHandler } from './helpers/main/ipcMainHandler';
+import path from 'node:path';
 
 const isWin = process.platform === 'win32';
 if (require('electron-squirrel-startup')) app.quit();
@@ -11,7 +12,6 @@ app.whenReady().then(() => {
 	Menu.setApplicationMenu(mainMenu);
 	ipcMainHandler();
 	createMainWindow();
-	console.log(process);
 });
 
 app.on('window-all-closed', () => {
@@ -23,4 +23,9 @@ app.on('activate', () => {
 		createMainWindow();
 	}
 });
+
+const dockImage = nativeImage.createFromPath(
+	path.join(app.getAppPath(), 'src', 'icons', 'dock.png')
+);
+!isWin && app.dock.setIcon(dockImage);
 
