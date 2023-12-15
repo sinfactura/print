@@ -1,15 +1,19 @@
 
 import { BrowserWindow } from 'electron';
+import windowStateKeeper from 'electron-window-state';
 import path from 'node:path';
 
 const isDev = process.env.NODE_ENV === 'development';
+const { width, height, x, y } = windowStateKeeper({
+	defaultWidth: isDev ? 1000 : 400,
+	defaultHeight: 560,
+});
 
 export let mainWindow: BrowserWindow;
 export const createMainWindow = async () => {
 
 	mainWindow = new BrowserWindow({
-		height: 560,
-		width: isDev ? 1000 : 400,
+		x, y, height, width,
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 			nodeIntegration: true,
