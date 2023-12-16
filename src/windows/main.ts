@@ -4,13 +4,15 @@ import windowStateKeeper from 'electron-window-state';
 import path from 'node:path';
 
 const isDev = process.env.NODE_ENV === 'development';
-const { width, height, x, y } = windowStateKeeper({
-	defaultWidth: isDev ? 1000 : 400,
-	defaultHeight: 560,
-});
+
 
 export let mainWindow: BrowserWindow;
 export const createMainWindow = async () => {
+
+	const { width, height, x, y, manage } = windowStateKeeper({
+		defaultWidth: isDev ? 1000 : 400,
+		defaultHeight: 560,
+	});
 
 	mainWindow = new BrowserWindow({
 		x, y, height, width,
@@ -42,7 +44,6 @@ export const createMainWindow = async () => {
 
 
 	isDev && mainWindow.webContents.openDevTools();
-	mainWindow.on('ready-to-show', mainWindow.show);
 	mainWindow.on('close', () => mainWindow = null);
-
+	manage(mainWindow);
 };

@@ -1,7 +1,7 @@
 
 import { app, BrowserWindow, Menu, nativeImage } from 'electron';
 import { mainMenu } from './helpers/main';
-import { createMainWindow } from './windows/main';
+import { createMainWindow, mainWindow } from './windows/main';
 import { ipcMainHandler } from './helpers/main/ipcMainHandler';
 import path from 'node:path';
 
@@ -12,6 +12,7 @@ app.whenReady().then(() => {
 	Menu.setApplicationMenu(mainMenu);
 	ipcMainHandler();
 	createMainWindow();
+	mainWindow.on('ready-to-show', mainWindow.show);
 });
 
 app.on('window-all-closed', () => {
