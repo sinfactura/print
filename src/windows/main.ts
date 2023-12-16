@@ -25,7 +25,7 @@ export const createMainWindow = async () => {
 	const ses = mainWindow.webContents.session;
 	await ses.cookies.set({ url: 'https://api.sinfactura.com', name: 'jwt', value: 'Samuel', expirationDate: 2191212121 });
 
-	const cookieJwt = await ses.cookies.get({ url: 'https://api.sinfactura.com', name: 'jwt2' });
+	const cookieJwt = await ses.cookies.get({ url: 'https://api.sinfactura.com', name: 'jwt' });
 	const isAuthenticated = cookieJwt.length > 0;
 
 
