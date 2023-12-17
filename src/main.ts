@@ -29,8 +29,6 @@ app.on('activate', () => {
 	}
 });
 
-const dockImage = nativeImage.createFromPath(
-	path.join(app.getAppPath(), 'src', 'icons', 'icon.png')
-);
+const dockImage = nativeImage.createFromPath(path.join(app.getAppPath(), 'build', 'icon.png'));
 !isWin && app.dock.setIcon(dockImage);
 

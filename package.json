@@ -1,5 +1,5 @@
 {
-  "name": "sinfactura",
+  "name": "cloudprint",
   "version": "1.0.1",
   "description": "Cloud print app",
   "main": ".vite/build/main.js",

@@ -4,6 +4,7 @@ import windowStateKeeper from 'electron-window-state';
 import path from 'node:path';
 
 const isDev = process.env.NODE_ENV === 'development';
+const isMac = process.platform === 'darwin';
 
 
 export let mainWindow: BrowserWindow;
@@ -14,10 +15,13 @@ export const createMainWindow = async () => {
 		defaultHeight: 560,
 	});
 
+	const iconFile = isMac ? 'icon.icns' : 'icon.ico';
+
 	mainWindow = new BrowserWindow({
 		x, y, height, width,
 		minHeight: 560,
 		minWidth: 400,
+		icon: path.join(__dirname, 'build', iconFile),
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 			nodeIntegration: true,
