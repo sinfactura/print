@@ -5,10 +5,17 @@ import { MakerDMG } from '@electron-forge/maker-dmg';
 import { VitePlugin } from '@electron-forge/plugin-vite';
 import path from 'node:path';
 
+const isMac = process.platform === 'darwin';
+const isWin = process.platform === 'win32';
+const iconFile = isMac
+	? 'icon.icns'
+	: isWin
+		? 'icon.ico'
+		: 'icon.png';
+
 const config: ForgeConfig = {
 	packagerConfig: {
-		icon: path.join(__dirname, 'build'),
-		extraResource: path.join(__dirname, 'build', 'icon.icns')
+		icon: path.join(__dirname, 'build', iconFile),
 	},
 	makers: [
 		// windows distributable
@@ -22,7 +29,6 @@ const config: ForgeConfig = {
 		// macOs distributable
 		new MakerDMG({
 			icon: path.join(__dirname, 'build', 'icon.icns'),
-			iconSize: 80,
 		}),
 	],
 	plugins: [
