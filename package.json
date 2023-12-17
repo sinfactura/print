@@ -1,8 +1,7 @@
 {
   "name": "sinfactura",
-  "productName": "Sinfactura Cloud Print",
-  "version": "1.0.0",
-  "description": "App to cloud print in sinfactura",
+  "version": "1.0.1",
+  "description": "Cloud print app",
   "main": ".vite/build/main.js",
   "scripts": {
     "dev": "electron-forge start",
@@ -12,10 +11,16 @@
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
-  "keywords": [],
+  "repository": "https://github.com/sinfactura/print",
+  "homepage": "https://sinfactura.com",
+  "keywords": [
+    "electron",
+    "sinfactura",
+    "cloud"
+  ],
   "author": {
-    "name": "Samuel Maison",
-    "email": "toinmdq@gmail.com"
+    "name": "SINFACTURA LLC",
+    "email": "admin@sinfactura.com"
   },
   "license": "MIT",
   "devDependencies": {
