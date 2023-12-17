@@ -18,4 +18,6 @@ const customMenu = [
 	},
 ] as (Electron.MenuItemConstructorOptions | Electron.MenuItem)[];
 
-export const mainMenu = Menu.buildFromTemplate(customMenu);
+const mainMenu = Menu.buildFromTemplate(customMenu);
+
+export const MainMenu = () => Menu.setApplicationMenu(mainMenu);
