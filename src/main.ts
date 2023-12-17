@@ -21,7 +21,11 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
 	if (BrowserWindow.getAllWindows().length === 0) {
-		createMainWindow();
+		createMainWindow().then(() => {
+			mainWindow.show();
+		});
+	} else {
+		mainWindow.show();
 	}
 });
 
