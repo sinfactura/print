@@ -16,6 +16,8 @@ export const createMainWindow = async () => {
 
 	mainWindow = new BrowserWindow({
 		x, y, height, width,
+		minHeight: 560,
+		minWidth: 400,
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 			nodeIntegration: true,

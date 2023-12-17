@@ -2,21 +2,12 @@
 import { Menu } from 'electron';
 
 const customMenu = [
-	{
-		label: 'Archivo',
-		submenu: [
-			{ role: 'quit', label: 'Salir', accelerator: 'CmdOrCtrl+W' },
-		],
-	},
-	{
-		label: 'Vista',
-		submenu: [
-			{ role: 'reload', label: 'Recargar' },
-			{ role: 'forceReload', label: 'Forzar recarga' },
-			{ role: 'toggleDevTools', label: 'Mostrar herramientas de desarrollo' },
-		]
-	},
+	{ role: 'appMenu' },
+	{ role: 'viewMenu' },
+	{ role: 'windowMenu' },
 ] as (Electron.MenuItemConstructorOptions | Electron.MenuItem)[];
+
+// if (process.platform === 'darwin') customMenu.unshift({ role: 'appMenu' });
 
 const mainMenu = Menu.buildFromTemplate(customMenu);
 
