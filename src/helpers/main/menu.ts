@@ -46,8 +46,4 @@ const customMenu = [
 	},
 ] as (Electron.MenuItemConstructorOptions | Electron.MenuItem)[];
 
-// if (process.platform === 'darwin') customMenu.unshift({ role: 'appMenu' });
-
-const mainMenu = Menu.buildFromTemplate(customMenu);
-
-export const MainMenu = () => Menu.setApplicationMenu(mainMenu);
+export const mainMenu = () => Menu.setApplicationMenu(Menu.buildFromTemplate(customMenu));

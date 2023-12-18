@@ -1,6 +1,6 @@
 
 import { app, BrowserWindow, nativeImage } from 'electron';
-import { MainMenu } from './helpers/main/menu';
+import { mainMenu } from './helpers/main/menu';
 import { createMainWindow, mainWindow } from './windows/main';
 import { ipcMainHandler } from './helpers/main/ipcMainHandler';
 import path from 'node:path';
@@ -9,7 +9,7 @@ const isWin = process.platform === 'win32';
 if (require('electron-squirrel-startup')) app.quit();
 
 app.whenReady().then(() => {
-	MainMenu();
+	mainMenu();
 	ipcMainHandler();
 	createMainWindow();
 	mainWindow.on('ready-to-show', mainWindow.show);
