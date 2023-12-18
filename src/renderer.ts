@@ -2,16 +2,9 @@
 import './index.css';
 import { wssHandler } from './helpers/renderer/wssHandler';
 import { printersHandler } from './helpers/renderer/printersHandler';
+import { loginHandler } from './helpers/renderer/loginHandler';
 
 printersHandler();
 wssHandler();
 
-const emailNode = document.getElementById('email');
-
-
-emailNode?.addEventListener('change', ({ target }: { target: unknown }) => {
-
-	const { value } = target as { value: string };
-
-	console.log(value);
-});
+loginHandler();

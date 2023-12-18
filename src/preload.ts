@@ -14,7 +14,9 @@ declare global {
 			setPrinter: (printer: string, name: string) => void,
 			loadPrinter: (printer: string) => Promise<string>,
 			print: (data: string, printer: string, isTag?: boolean) => Promise<void>,
-		}
+			// LOGIN
+			login: (email: string, password: string) => void,
+		},
 	}
 }
 
@@ -30,4 +32,7 @@ contextBridge.exposeInMainWorld('ipc', {
 	setPrinter: (printer: string, name: string) => ipcRenderer.send('set-printer', printer, name),
 	loadPrinter: (printer: string) => handleLoadPrinter(printer),
 	print: (data: string, printer: string, isTag?: boolean) => ipcRenderer.send('print', data, printer, isTag),
+	// LOGIN
+	login: (email: string, password: string) => ipcRenderer.send('set-email', { email, password }),
+
 });

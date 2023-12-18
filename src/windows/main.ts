@@ -1,5 +1,5 @@
 
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, ipcMain } from 'electron';
 import windowStateKeeper from 'electron-window-state';
 import path from 'node:path';
 
@@ -32,13 +32,17 @@ export const createMainWindow = async () => {
 
 	manage(mainWindow);
 
-	const ses = mainWindow.webContents.session;
-	await ses.cookies.set({ url: 'https://api.sinfactura.com', name: 'jwt', value: 'Samuel', expirationDate: 2191212121 });
+	// const ses = mainWindow.webContents.session;
+	// await ses.cookies.set({ url: 'https://api.sinfactura.com', name: 'jwt', value: 'Samuel', expirationDate: 2191212121 });
 
-	const cookieJwt = await ses.cookies.get({ url: 'https://api.sinfactura.com', name: 'jwt2' });
-	const isAuthenticated = cookieJwt.length > 0;
+	// const cookieJwt = await ses.cookies.get({ url: 'https://api.sinfactura.com', name: 'jwt2' });
+	// const isAuthenticated = cookieJwt.length > 0;
 
-	console.log(isAuthenticated);
+	// console.log(isAuthenticated);
+
+	ipcMain.on('set-email', (e, args) => {
+		console.log(args);
+	});
 
 
 	if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
