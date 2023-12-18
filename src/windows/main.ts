@@ -30,6 +30,8 @@ export const createMainWindow = async () => {
 		backgroundColor: '#333',
 	});
 
+	manage(mainWindow);
+
 	const ses = mainWindow.webContents.session;
 	await ses.cookies.set({ url: 'https://api.sinfactura.com', name: 'jwt', value: 'Samuel', expirationDate: 2191212121 });
 
@@ -52,5 +54,4 @@ export const createMainWindow = async () => {
 	isDev && mainWindow.webContents.openDevTools();
 	mainWindow.on('ready-to-show', mainWindow.show);
 	mainWindow.on('close', () => mainWindow = null);
-	manage(mainWindow);
 };
