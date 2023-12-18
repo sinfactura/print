@@ -9,7 +9,7 @@ const isWin = process.platform === 'win32';
 
 declare global {
 	interface Window {
-		data: {
+		ipc: {
 			getPrinters: () => Promise<Record<string, string>[]>,
 			setPrinter: (printer: string, name: string) => void,
 			loadPrinter: (printer: string) => Promise<string>,
@@ -25,7 +25,7 @@ const handleLoadPrinter = async (printer: string) => {
 	return data;
 };
 
-contextBridge.exposeInMainWorld('data', {
+contextBridge.exposeInMainWorld('ipc', {
 	getPrinters: () => isWin ? getPrintersWin() : getPrintersUnix(),
 	setPrinter: (printer: string, name: string) => ipcRenderer.send('set-printer', printer, name),
 	loadPrinter: (printer: string) => handleLoadPrinter(printer),

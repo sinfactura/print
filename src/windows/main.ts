@@ -11,15 +11,15 @@ export let mainWindow: BrowserWindow;
 export const createMainWindow = async () => {
 
 	const { width, height, x, y, manage } = windowStateKeeper({
-		defaultWidth: isDev ? 1000 : 400,
-		defaultHeight: 560,
+		defaultWidth: 400,
+		defaultHeight: 520,
 	});
 
 	const iconFile = isMac ? 'icon.icns' : 'icon.ico';
 
 	mainWindow = new BrowserWindow({
 		x, y, height, width,
-		minHeight: 560,
+		minHeight: 520,
 		minWidth: 400,
 		icon: path.join(__dirname, 'build', iconFile),
 		webPreferences: {
@@ -35,19 +35,16 @@ export const createMainWindow = async () => {
 	const ses = mainWindow.webContents.session;
 	await ses.cookies.set({ url: 'https://api.sinfactura.com', name: 'jwt', value: 'Samuel', expirationDate: 2191212121 });
 
-	const cookieJwt = await ses.cookies.get({ url: 'https://api.sinfactura.com', name: 'jwt' });
+	const cookieJwt = await ses.cookies.get({ url: 'https://api.sinfactura.com', name: 'jwt2' });
 	const isAuthenticated = cookieJwt.length > 0;
+
+	console.log(isAuthenticated);
 
 
 	if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-		if (isAuthenticated) {
-			mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
-		} else {
-			mainWindow.loadFile('login.html');
-		}
+		mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
 	} else {
-		if (isAuthenticated) return mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
-		mainWindow.loadFile('login.html');
+		mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
 	}
 
 

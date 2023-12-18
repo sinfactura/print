@@ -1,6 +1,6 @@
 
 import { app, BrowserWindow, nativeImage } from 'electron';
-import { MainMenu } from './helpers/main';
+import { MainMenu } from './helpers/main/menu';
 import { createMainWindow, mainWindow } from './windows/main';
 import { ipcMainHandler } from './helpers/main/ipcMainHandler';
 import path from 'node:path';

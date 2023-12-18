@@ -2,61 +2,93 @@
 <html>
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>sinfactura.com | Cloud Printing </title>
-  <link rel="stylesheet" href="/src/index.css">
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>sinfactura.com | Cloud Printing </title>
+	<link rel="stylesheet" href="/src/index.css">
 </head>
 
 <body class="p-4">
-  <div class="container-fluid">
-    <div class="mt-2 mb-4">
-      <h5>Configuración de impresoras</h5>
-    </div>
+	<div class="container-fluid" style="display: none;" id="main-div">
+		<div class="mt-2 mb-4">
+			<h5>Configuración de impresoras</h5>
+		</div>
 
-    <form>
+		<form>
 
-      <div class="my-3">
-        <label for="printer1" class="form-label">PEDIDOS</label>
-        <select class="form-select printer" id="printer1">
-          <option value="" selected>Seleccionar impresora</option>
-        </select>
-      </div>
+			<div class="my-3">
+				<label for="printer1" class="form-label">PEDIDOS</label>
+				<select class="form-select printer" id="printer1">
+					<option value="" selected>Seleccionar impresora</option>
+				</select>
+			</div>
 
-      <div class="my-3">
-        <label for="printer2" class="form-label">FACTURAS</label>
-        <select class="form-select printer" id="printer2">
-          <option value="" selected>Seleccionar impresora</option>
-        </select>
-      </div>
+			<div class="my-3">
+				<label for="printer2" class="form-label">FACTURAS</label>
+				<select class="form-select printer" id="printer2">
+					<option value="" selected>Seleccionar impresora</option>
+				</select>
+			</div>
 
-      <div class="my-3">
-        <label for="printer3" class="form-label">ETIQUETAS</label>
-        <select class="form-select printer" id="printer3">
-          <option value="" selected>Seleccionar impresora</option>
-        </select>
-      </div>
+			<div class="my-3">
+				<label for="printer3" class="form-label">ETIQUETAS</label>
+				<select class="form-select printer" id="printer3">
+					<option value="" selected>Seleccionar impresora</option>
+				</select>
+			</div>
 
-    </form>
+		</form>
 
-    <div class="mt-4">
-      <!-- <div class="alert alert-success" role="alert">
-                A simple success alert !
-        			</div> -->
+		<div class="mt-4">
+			<!-- <div class="alert alert-success" role="alert">
+								A simple success alert !
+							</div> -->
 
-      <div class="alert alert-danger" role="alert" id="message">
-        A simple danger alert !
-      </div>
-      <!-- <div class="alert alert-warning" role="alert">
-                A simple warning alert !
-        			</div> -->
-    </div>
+			<div class="alert alert-danger" role="alert" id="message">
+				A simple danger alert !
+			</div>
+			<!-- <div class="alert alert-warning" role="alert">
+								A simple warning alert !
+							</div> -->
+		</div>
 
-  </div>
+	</div>
 
-  <script type="module" src="/src/renderer.ts"></script>
+	<!-- LOGIN -->
+	<div class="container-fluid" style="display: block;" id="login-div">
+		<legend class="mb-4">Ingrese a su cuenta</legend>
+
+		<form action="">
+			<div class="form-floating mb-3">
+				<input type="email" class="form-control" id="email" placeholder="name@example.com">
+				<label for="email" style="color: #666;">Email</label>
+			</div>
+
+			<div class="form-floating mb-3" style="color: #666;">
+				<input type="password" class="form-control" id="password" placeholder="Password">
+				<label for="password">Contraseña</label>
+			</div>
+
+			<div class="d-grid gap-2">
+				<button type="submit" class="btn btn-primary">Ingresar</button>
+				<button type="reset" class="btn btn-secondary">Resetear</button>
+			</div>
+		</form>
+
+		<div class="mt-4">
+
+			<div class="alert alert-danger" role="alert" id="message">
+				Email o contraseña incorrectos!
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<script type="module" src="/src/renderer.ts"></script>
 </body>
 
 </html>
