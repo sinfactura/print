@@ -5,12 +5,11 @@ body {
     Arial, sans-serif;
   background: #333;
   color: white;
+  /* PREVENT SELECTION */
   -webkit-user-select: none;
-  /* Safari */
+  -moz-user-select: none;
   -ms-user-select: none;
-  /* IE 10 and IE 11 */
   user-select: none;
-  /* Standard syntax */
 }
 
 .loading {
