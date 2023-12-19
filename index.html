@@ -11,12 +11,12 @@
 </head>
 
 <body class="p-4">
-	<div class="container-fluid" style="display: none;" id="main-div">
-		<div class="mt-2 mb-4">
+	<div class="container-fluid hidden" id="main-div">
+		<div class="mb-4">
 			<h5>Configuración de impresoras</h5>
 		</div>
 
-		<form>
+		<form novalidate>
 
 			<div class="my-3">
 				<label for="printer1" class="form-label">PEDIDOS</label>
@@ -41,26 +41,15 @@
 
 		</form>
 
-		<div class="mt-4">
-			<!-- <div class="alert alert-success" role="alert">
-								A simple success alert !
-							</div> -->
-
-			<div class="alert alert-danger" role="alert" id="message">
-				A simple danger alert !
-			</div>
-			<!-- <div class="alert alert-warning" role="alert">
-								A simple warning alert !
-							</div> -->
-		</div>
-
 	</div>
 
 	<!-- LOGIN -->
-	<div class="container-fluid" style="display: block;" id="login-div">
-		<legend class="mb-4">Ingrese a su cuenta</legend>
+	<div class="container-fluid" id="login-div">
+		<div class="mb-4">
+			<h5>Ingrese a su cuenta</h5>
+		</div>
 
-		<form action="">
+		<form id="frm-login" novalidate>
 			<div class="form-floating mb-3">
 				<input type="email" class="form-control" id="email" placeholder="name@example.com">
 				<label for="email" style="color: #666;">Email</label>
@@ -78,15 +67,18 @@
 		</form>
 
 		<div class="mt-4">
-
-			<div class="alert alert-danger" role="alert" id="message">
+			<div class="alert alert-danger hidden" role="alert" id="message">
 				Email o contraseña incorrectos!
 			</div>
-
 		</div>
 
 	</div>
 
+	<div class="loading hidden" id="loading">
+		<div class="spinner-grow" style="width: 5rem; height: 5rem;" role="status">
+			<span class="visually-hidden">Cargando...</span>
+		</div>
+	</div>
 
 	<script type="module" src="/src/renderer.ts"></script>
 </body>
