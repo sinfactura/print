@@ -102,7 +102,12 @@ export const loginHandler = async () => {
 		showError(false);
 		showLoading(true);
 
-		if ((email.length < 10) ?? (password.length < 8)) {
+		const validateEmail = (email: string): boolean => {
+			const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+			return regex.test(email);
+		};
+
+		if (!validateEmail(email) ?? (password.length < 8)) {
 			showError(true);
 			showLoading(false);
 			return;
