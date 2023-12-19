@@ -12,6 +12,7 @@ export const loginHandler = async () => {
 	const loginDiv = document.getElementById('login-div');
 	const loading = document.getElementById('loading');
 	const message = document.getElementById('message');
+	const logoutButton = document.getElementById('btn-logout');
 
 	let email = '';
 	let password = '';
@@ -25,6 +26,18 @@ export const loginHandler = async () => {
 	passNode?.addEventListener('change', ({ target }: { target: unknown }) => {
 		const { value } = target as { value: string };
 		password = value;
+	});
+
+	logoutButton.addEventListener('click', () => {
+		showLoading(true);
+		window.ipc.writeFile('accessToken', '');
+		window.ipc.writeFile('refreshToken', '');
+
+		setTimeout(() => {
+			wssHandler();
+			showMain(false);
+			showLoading(false);
+		}, 1000);
 	});
 
 	// HANDLERS
