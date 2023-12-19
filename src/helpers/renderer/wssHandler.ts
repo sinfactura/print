@@ -2,11 +2,18 @@
 import axios from 'axios';
 
 
-const userId = 'USR002';
-const storeId = 'STO001';
-const baseUrl = `wss://wss.sinfactura.com?userId=${userId}&storeId=${storeId}`;
 
-export const wssHandler = () => {
+export const wssHandler = async () => {
+	const userId = await window.ipc.loadFile('userId');
+	const storeId = await window.ipc.loadFile('storeId');
+	const accessToken = await window.ipc.getToken('accessToken');
+
+	if (!userId || !storeId || !accessToken) {
+		console.log('cancel socket connection!');
+		return;
+	}
+
+	const baseUrl = `wss://wss.sinfactura.com?userId=${userId}&storeId=${storeId}`;
 	const ws = new WebSocket(baseUrl, []);
 
 	// HANDLE ERRORS
@@ -31,12 +38,12 @@ export const wssHandler = () => {
 
 	ws.onmessage = async (event) => {
 		const { action, data } = JSON.parse(event?.data) as { action: string, data: Record<string, string | number> };
-		const printerOrder = await window.ipc.loadPrinter('printer1');
-		const printerInvoice = await window.ipc.loadPrinter('printer2');
-		const printerTag = await window.ipc.loadPrinter('printer3');
+		const printerOrder = await window.ipc.loadFile('printer1');
+		const printerInvoice = await window.ipc.loadFile('printer2');
+		const printerTag = await window.ipc.loadFile('printer3');
 
 		const baseUrl = 'https://api.sinfactura.com';
-		const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdG9yZUlkIjoiU1RPMDAxIiwidXNlcklkIjoiVVNSMDAxIiwicm9sZXMiOiJBRE1JTiBVU0VSIFNVUEVSX1VTRVIgU1VQRVJfQURNSU4iLCJpYXQiOjE3MDIwNDI0MjksImV4cCI6MTcwMjEwNzIyOX0.Lwh2XVHBNE3aUtg_aRbhpUj2XPWuMYqT35t96f_-A_k';
+		const Authorization = `Bearer ${accessToken}`;
 
 		try {
 
@@ -93,6 +100,6 @@ export const wssHandler = () => {
 	// setInterval(() => {
 	// 	// FORCE CLOSE TO TEST IT
 	// 	ws.close();
-	// }, 1000 * 5 * 1)
+	// }, 1000 * 5 * 1);
 
 };

@@ -6,9 +6,9 @@ export const printersHandler = async () => {
 
 	selects.map(async (select) => {
 		select.addEventListener('change', () => {
-			window.ipc.setPrinter(select.id, select.value);
+			window.ipc.writeFile(select.id, select.value);
 		});
-		const printerSelected = await window.ipc.loadPrinter(select.id);
+		const printerSelected = await window.ipc.loadFile(select.id);
 
 		printers.map(({ description, printer, name, deviceId }) => {
 			const option = document.createElement('option');

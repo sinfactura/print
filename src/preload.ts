@@ -4,20 +4,39 @@ import { getPrinters as getPrintersUnix } from 'unix-print';
 import { getPrinters as getPrintersWin } from 'pdf-to-printer';
 import path from 'node:path';
 import fs from 'node:fs';
+import { getToken } from './helpers/main/getToken';
+
+declare global {
+	type Login = {
+		accessToken: string, refreshToken: string, storeId: string, userId: string, fullName: string
+	}
+	interface Window {
+		ipc: {
+			getPrinters: () => Promise<Record<string, string>[]>,
+			writeFile: (fileName: string, dataToWrite: string) => void,
+			loadFile: (file: string) => Promise<string>,
+			getToken: (name: 'accessToken' | 'refreshToken') => Promise<string>,
+			print: (data: string, printer: string, isTag?: boolean) => Promise<void>,
+			login: (login: Login) => void,
+		},
+	}
+}
 
 const isWin = process.platform === 'win32';
 
-const handleLoadPrinter = async (printer: string) => {
-	const file = path.join(__dirname, `${printer}.txt`);
-	if (!fs.existsSync(file)) return '';
-	const data = fs.readFileSync(file).toString();
+const handleLoadFile = async (fileName: string) => {
+	const filePath = path.join(__dirname, `${fileName}.txt`);
+	if (!fs.existsSync(filePath)) return '';
+	const data = fs.readFileSync(filePath).toString();
 	return data;
 };
 
+
 contextBridge.exposeInMainWorld('ipc', {
 	getPrinters: () => isWin ? getPrintersWin() : getPrintersUnix(),
-	setPrinter: (printer: string, name: string) => ipcRenderer.send('set-printer', printer, name),
-	loadPrinter: (printer: string) => handleLoadPrinter(printer),
+	writeFile: (fileName: string, dataToWrite: string) => ipcRenderer.send('write-file', fileName, dataToWrite),
+	loadFile: (file: string) => handleLoadFile(file),
 	print: (data: string, printer: string, isTag?: boolean) => ipcRenderer.send('print', data, printer, isTag),
 	login: (login: Login) => ipcRenderer.send('login', login),
+	getToken: (name: 'accessToken' | 'refreshToken') => getToken(name),
 });
