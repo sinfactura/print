@@ -20,7 +20,7 @@ export const handlePrint = async (event: unknown, data: string, printer: string,
 			? await printWin(file, {
 				printer,
 				scale: 'fit',
-				orientation: `${isTag ? 'portrait' : 'landscape'}`,
+				orientation: `${isTag ? 'portrait' : 'portrait'}`,
 				paperSize: `${isTag ? 'A6' : 'A4'}`,
 				sumatraPdfPath: path.join(__dirname, '..', '..', 'node_modules\\pdf-to-printer\\dist\\SumatraPDF-3.4.6-32.exe')
 			})
