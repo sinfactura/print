@@ -4,9 +4,11 @@ import { mainMenu } from './helpers/main/menu';
 import { createMainWindow, mainWindow } from './windows/main';
 import { ipcMainHandler } from './helpers/main/ipcMainHandler';
 import path from 'node:path';
+import Squirrel from 'electron-squirrel-startup';
 
 const isWin = process.platform === 'win32';
-if (require('electron-squirrel-startup')) app.quit();
+// if (require('electron-squirrel-startup')) app.quit();
+if (Squirrel) app.quit();
 
 app.whenReady().then(() => {
 	mainMenu();
