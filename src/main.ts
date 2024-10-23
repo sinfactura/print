@@ -3,10 +3,10 @@ import { app, BrowserWindow, nativeImage } from 'electron';
 import { mainMenu } from './helpers/main/menu';
 import { createMainWindow, mainWindow } from './windows/main';
 import { ipcMainHandler } from './helpers/main/ipcMainHandler';
-import path from 'node:path';
+import path from 'path';
 import Squirrel from 'electron-squirrel-startup';
 
-const isWin = process.platform === 'win32';
+const isWin = process.platform !== 'darwin';
 // if (require('electron-squirrel-startup')) app.quit();
 if (Squirrel) app.quit();
 

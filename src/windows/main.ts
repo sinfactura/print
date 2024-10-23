@@ -40,7 +40,8 @@ export const createMainWindow = async () => {
 	}
 
 
-	isDev && mainWindow.webContents.openDevTools();
+	mainWindow.webContents.openDevTools();
+	// isDev && mainWindow.webContents.openDevTools();
 	mainWindow.on('ready-to-show', mainWindow.show);
 	mainWindow.on('close', () => mainWindow = null);
 };

@@ -4,12 +4,13 @@ import { print as printUnix } from 'unix-print';
 import { print as printWin } from 'pdf-to-printer';
 
 export const handlePrint = async (event: unknown, data: string, printer: string, isTag = false) => {
-	const file = path.join(__dirname, 'fileToPrint.pdf');
+	const filePath = path.join(__dirname, 'fileToPrint.pdf');
+	console.log('print', filePath);
 
 	const formatedData = Buffer.from(data.slice(28, 999999), 'base64');
 	const isWin = process.platform === 'win32';
 
-	fs.createWriteStream(file).write(formatedData, async () => {
+	fs.createWriteStream(filePath).write(formatedData, async () => {
 		const options = [
 			`-o ${isTag ? 'portrait' : 'landscape'}`,
 			'-o fit-to-page',
@@ -17,7 +18,7 @@ export const handlePrint = async (event: unknown, data: string, printer: string,
 		];
 
 		isWin
-			? await printWin(file, {
+			? await printWin(filePath, {
 				printer,
 				scale: 'fit',
 				orientation: `${isTag ? 'portrait' : 'portrait'}`,
@@ -29,14 +30,14 @@ export const handlePrint = async (event: unknown, data: string, printer: string,
 				}).catch(err => {
 					console.log('Error al imprimir', err);
 				})
-			: await printUnix(file, printer, options)
+			: await printUnix(filePath, printer, options)
 				.then((res) => {
 					console.log('Archivo impreso', res);
-					fs.unlinkSync(file);
+					fs.unlinkSync(filePath);
 				})
 				.catch((err) => {
 					console.log('Error al imprimir', err);
-					fs.unlinkSync(file);
+					fs.unlinkSync(filePath);
 				});
 	});
 };

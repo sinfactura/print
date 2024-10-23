@@ -2,7 +2,9 @@
 import path from 'node:path';
 import fs from 'node:fs';
 
-export const handleWriteFile = (event: unknown, printer: string, name: string): void => {
-	const file = path.join(__dirname, `${printer}.txt`);
-	fs.writeFileSync(file, name);
+export const handleWriteFile = (event: unknown, fileName: string, name: string): void => {
+	const filePath = path.join(__dirname, `${fileName}.txt`);
+	console.log('write', filePath);
+
+	fs.writeFileSync(filePath, name);
 };

@@ -119,8 +119,8 @@ export const loginHandler = async () => {
 		await axios({
 			url: `${baseUrl}/auth`,
 			method: 'POST',
-			data: { 
-				email, 
+			data: {
+				email,
 				password,
 				mode: 'login'
 			},

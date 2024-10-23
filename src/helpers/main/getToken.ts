@@ -1,10 +1,12 @@
 
 import { decodeJwt } from 'jose';
 import { existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import path from 'node:path';
 
-export const getToken = async (name: 'refreshToken' | 'accessToken') => {
-	const filePath = join(__dirname, `${name}.txt`);
+export const getToken = async (fileName: 'refreshToken' | 'accessToken') => {
+	const filePath = path.join(__dirname, `${fileName}.txt`);
+	console.log(filePath);
+
 	if (!existsSync(filePath)) return '';
 	const token = readFileSync(filePath).toString();
 	const exp = token ? decodeJwt(token).exp ?? 0 : 0;
