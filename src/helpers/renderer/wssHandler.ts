@@ -94,7 +94,7 @@ export const wssHandler = async () => {
 
 	// KEEP ALIVE
 	setInterval(() => {
-		if (ws.readyState === 1) ws.send('live');
+		if (ws.readyState === 1) ws.send('ping');
 	}, 1000 * 60 * 1);
 
 	// setInterval(() => {
