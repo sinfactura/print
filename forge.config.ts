@@ -27,9 +27,9 @@ const config: ForgeConfig = {
 		// darwin and win32 ZIP file
 		new MakerZIP({}, [ 'darwin', 'win32' ]),
 		// macOs distributable
-		new MakerDMG({
-			icon: path.join(__dirname, 'build', 'icon.icns'),
-		}),
+		// new MakerDMG({
+		// 	icon: path.join(__dirname, 'build', 'icon.icns'),
+		// }),
 	],
 	plugins: [
 		new VitePlugin({

@@ -67,10 +67,13 @@ export const loginHandler = async () => {
 		showLoading(true);
 
 		await axios({
-			url: `${baseUrl}/auth/refresh`,
+			url: `${baseUrl}/auth`,
 			method: 'post',
 			headers: {
 				Authorization: `${refreshToken}`
+			},
+			data: {
+				mode: 'refresh',
 			}
 		}).then(async ({ data: { data = {} } }) => {
 
@@ -78,8 +81,8 @@ export const loginHandler = async () => {
 				roles,
 				accessToken,
 			} = data;
-			if (!`${roles}`.includes('ADMIN')) return (
-				showError(true, 'No tiene permisos administrativos!'),
+			if (!`${roles}`.includes('PRINTER')) return (
+				showError(true, 'No tiene permisos de impresion!'),
 				showLoading(false)
 			);
 
@@ -107,16 +110,20 @@ export const loginHandler = async () => {
 			return regex.test(email);
 		};
 
-		if (!validateEmail(email) ?? (password.length < 8)) {
+		if (!validateEmail(email) || (password.length < 8)) {
 			showError(true);
 			showLoading(false);
 			return;
 		}
 
 		await axios({
-			url: `${baseUrl}/auth/login`,
+			url: `${baseUrl}/auth`,
 			method: 'POST',
-			data: { email, password },
+			data: { 
+				email, 
+				password,
+				mode: 'login'
+			 },
 		}).then(({ data: { data = {} } }) => {
 
 			const {
@@ -128,8 +135,8 @@ export const loginHandler = async () => {
 				userId,
 			} = data;
 
-			if (!`${roles}`.includes('ADMIN')) return (
-				showError(true, 'No tiene permisos administrativos!'),
+			if (!`${roles}`.includes('PRINTER')) return (
+				showError(true, 'No tiene permisos de impresion!'),
 				showLoading(false)
 			);
 
