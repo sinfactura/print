@@ -37,6 +37,7 @@ export const wssHandler = async () => {
 	};
 
 	ws.onmessage = async (event) => {
+		if (event?.data === 'pong') return console.log('pong');
 		const { action, data } = JSON.parse(event?.data) as { action: string, data: Record<string, string | number> };
 		const printerOrder = await window.ipc.loadFile('printer1');
 		const printerInvoice = await window.ipc.loadFile('printer2');
