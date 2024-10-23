@@ -4,13 +4,13 @@ const selects = Array.from(document.getElementsByClassName('printer')) as HTMLIn
 export const printersHandler = async () => {
 	const printers = await window.ipc.getPrinters();
 
-	selects.map(async (select) => {
+	selects.forEach(async (select) => {
 		select.addEventListener('change', () => {
 			window.ipc.writeFile(select.id, select.value);
 		});
 		const printerSelected = await window.ipc.loadFile(select.id);
 
-		printers.map(({ description, printer, name, deviceId }) => {
+		printers.forEach(({ description, printer, name, deviceId }) => {
 			const option = document.createElement('option');
 			option.text = description ?? name;
 			option.value = printer ?? deviceId;

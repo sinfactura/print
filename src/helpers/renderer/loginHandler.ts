@@ -123,7 +123,7 @@ export const loginHandler = async () => {
 				email, 
 				password,
 				mode: 'login'
-			 },
+			},
 		}).then(({ data: { data = {} } }) => {
 
 			const {

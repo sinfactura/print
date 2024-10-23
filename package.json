@@ -9,15 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint --ext .ts ."
   },
-  "repository": "https://github.com/sinfactura/print",
-  "homepage": "https://sinfactura.com",
-  "keywords": [
-    "electron",
-    "sinfactura",
-    "cloud"
-  ],
   "author": {
     "name": "SINFACTURA LLC",
     "email": "admin@sinfactura.com"
@@ -36,7 +29,7 @@
     "@types/ws": "^8.5.10",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
-    "electron": "^28.0.0",
+    "electron": "^28.3.3",
     "eslint": "^8.56.0",
     "eslint-plugin-import": "^2.29.1",
     "ts-node": "^10.9.2",
