@@ -26,8 +26,6 @@ const isWin = process.platform === 'win32';
 
 const handleLoadFile = async (fileName: string) => {
 	const filePath = path.join(__dirname, `${fileName}.txt`);
-	console.log(filePath);
-
 	if (!fs.existsSync(filePath)) return '';
 	const data = fs.readFileSync(filePath, 'utf-8');
 	return data;

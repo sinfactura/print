@@ -5,8 +5,6 @@ import { print as printWin } from 'pdf-to-printer';
 
 export const handlePrint = async (event: unknown, data: string, printer: string, isTag = false) => {
 	const filePath = path.join(__dirname, 'fileToPrint.pdf');
-	console.log('print', filePath);
-
 	const formatedData = Buffer.from(data.slice(28, 999999), 'base64');
 	const isWin = process.platform === 'win32';
 

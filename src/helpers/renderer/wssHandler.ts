@@ -8,7 +8,6 @@ export const wssHandler = async () => {
 	const storeId = await window.ipc.loadFile('storeId');
 	const accessToken = await window.ipc.getToken('accessToken');
 
-	console.log({ userId, storeId, accessToken });
 	if (!userId || !storeId || !accessToken) {
 		console.log('cancel socket connection!');
 		return;

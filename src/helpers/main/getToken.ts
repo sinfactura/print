@@ -5,7 +5,6 @@ import path from 'node:path';
 
 export const getToken = async (fileName: 'refreshToken' | 'accessToken') => {
 	const filePath = path.join(__dirname, `${fileName}.txt`);
-	console.log(filePath);
 
 	if (!existsSync(filePath)) return '';
 	const token = readFileSync(filePath).toString();
